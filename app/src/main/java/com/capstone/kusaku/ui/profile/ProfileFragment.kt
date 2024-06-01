@@ -1,7 +1,6 @@
 package com.capstone.kusaku.ui.profile
 
 import android.content.Intent
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,11 +24,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.valueUsername.text = "Poli Deo Lolowang"
-        binding.valueEmail.text = "poli.deo@gmail.com"
-        binding.valueIncome.text = "Rp.50.000.000"
-        binding.valueGender.text = "Male"
 
         binding.btnLogout.setOnClickListener {
             Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
