@@ -1,16 +1,31 @@
 <resources>
     <string name="app_name">kuSaku</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_transaction">Transaction</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
     <string name="welcome">Welcome</string>
     <string name="sub_tittle_login">Please sign in to continue</string>
     <string name="sign_in">SIGN IN</string>
     <string name="button_sign_in">Sign In</string>
+    <string name="button_sign_up">Sign Up</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="confirmation_password">Confirmation Password</string>
     <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="got_an_account">Got an account? Sign In</string>
     <string name="email_validation">Your email is invalid!</string>
     <string name="password_length">Password must not be less than 8 characters</string>
     <string name="required_field">Field cannot be empty!</string>
+    <string name="sub_title_register">Please sign up to continue</string>
+    <string name="profile">Profile</string>
+    <string name="username">Username</string>
+    <string name="income">Income</string>
+    <string name="gender">Gender</string>
+    <string name="log_out">Log out</string>
+    <string name="add">Add</string>
+    <string name="nominal">Nominal</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="description">Description</string>
+    <string name="sign_up">SIGN UP</string>
 </resources>
