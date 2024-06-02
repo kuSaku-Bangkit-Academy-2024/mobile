@@ -27,4 +27,5 @@
     <string name="nominal">Nominal</string>
     <string name="add_expense">Add Expense</string>
     <string name="description">Description</string>
+    <string name="sign_up">SIGN UP</string>
 </resources>
