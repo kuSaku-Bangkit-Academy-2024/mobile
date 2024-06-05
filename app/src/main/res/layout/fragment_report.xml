@@ -11,16 +11,16 @@
         android:layout_height="0dp"
         android:background="@color/teal_700"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_advices"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_advices" />
 
     <TextView
         android:id="@+id/tv_monthly_report"
+        style="@style/Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Monthly Report"
-        style="@style/Header"
+        android:text="@string/monthly_report"
         android:textStyle="bold"
         android:layout_marginTop="@dimen/activity_vertical_margin2"
         android:textColor="@android:color/white"
@@ -29,15 +29,15 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/tv_report_date"
+        android:id="@+id/tv_date_report"
+        style="@style/SubTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="March - April 2024"
-        style="@style/SubTitleText"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/tv_monthly_report"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_monthly_report" />
 
     <LinearLayout
         android:id="@+id/ll_report_piechart"
@@ -47,8 +47,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        app:layout_constraintTop_toBottomOf="@id/tv_report_date">
+        app:layout_constraintTop_toBottomOf="@id/tv_date_report">
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartView_report"
@@ -64,33 +63,33 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+            android:layout_marginStart="@dimen/activity_horizontal_margin" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_total_expense"
+        style="@style/SmallText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total expense: Rp...,...,..."
-        style="@style/SmallText"
+        android:text="@string/total_expense_report"
         android:textColor="@android:color/white"
         android:paddingBottom="5dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintTop_toBottomOf="@id/ll_report_piechart"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_report_piechart" />
 
     <TextView
         android:id="@+id/tv_advices"
+        style="@style/TitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        android:text="Advices"
+        android:text="@string/advices"
         android:textColor="@color/teal_700"
-        style="@style/TitleText"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_lamp"
         android:drawablePadding="5dp"
@@ -106,8 +105,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_advices"
-        tools:listitem="@layout/item_advices" />
-
+        tools:listitem="@layout/item_advices"
+        app:layout_constraintTop_toBottomOf="@id/tv_advices" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

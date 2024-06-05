@@ -11,30 +11,25 @@ class ExpenseHistoryAdapter : RecyclerView.Adapter<ExpenseHistoryAdapter.ViewHol
 
     private var expenseList = listOf<ExpenseItem>()
 
-    // Fungsi untuk mengatur data riwayat pengeluaran dari API
     fun setData(expenses: List<ExpenseItem>) {
         expenseList = expenses
         notifyDataSetChanged()
     }
 
-    // Membuat ViewHolder yang menghubungkan tata letak item ke tampilan
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_expense_history, parent, false)
         return ViewHolder(view)
     }
 
-    // Mengikat data ke tampilan dalam ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val expenseItem = expenseList[position]
         holder.bind(expenseItem)
     }
 
-    // Mengembalikan jumlah item dalam daftar
     override fun getItemCount(): Int {
         return expenseList.size
     }
 
-    // ViewHolder berisi tampilan yang mewakili item riwayat pengeluaran dalam RecyclerView
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val categoryTextView: TextView = itemView.findViewById(R.id.tv_category)
         val amountTextView: TextView = itemView.findViewById(R.id.tv_amount)

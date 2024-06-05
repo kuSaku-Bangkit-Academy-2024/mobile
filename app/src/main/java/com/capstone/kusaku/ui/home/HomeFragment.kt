@@ -46,20 +46,14 @@ class HomeFragment : Fragment() {
             textView.text = it
         }
 
-        // Inisialisasi RecyclerView
         rvExpenseHistory = binding.rvExpenseHistory
-
-        // Inisialisasi Adapter
         expenseHistoryAdapter = ExpenseHistoryAdapter()
 
-        // Atur layout manager untuk RecyclerView
         rvExpenseHistory.layoutManager = LinearLayoutManager(requireContext())
-
-        // Set adapter ke RecyclerView
         rvExpenseHistory.adapter = expenseHistoryAdapter
 
         // Set data palsu ke adapter
-        val expenseList = getExpenseHistoryData() // Gantikan dengan cara untuk mendapatkan data palsu Anda
+        val expenseList = getExpenseHistoryData()
         expenseHistoryAdapter.setData(expenseList)
 
         pieChart = binding.pieChartView
@@ -77,7 +71,6 @@ class HomeFragment : Fragment() {
             ExpenseItem("Education", "500.000", "2024-06-14"),
             ExpenseItem("Sport", "100.000", "2024-06-15"),
             ExpenseItem("Internet", "200.000", "2024-06-16"),
-            // Tambahkan item lain sesuai kebutuhan
         )
     }
 
@@ -116,8 +109,6 @@ class HomeFragment : Fragment() {
         }
 
         val totalExpenseTextView: TextView = binding.tvTotalExpense
-
-        // Hitung total pengeluaran
         val totalExpense = calculateTotalExpense(expenseList)
         val formattedTotalExpense = NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(totalExpense)
         totalExpenseTextView.text = formattedTotalExpense
@@ -139,7 +130,6 @@ class HomeFragment : Fragment() {
         pieChart.data = pieData
         pieChart.invalidate()
 
-        // Create custom legend
         createCustomLegend(typeAmountMap, colors)
     }
 
@@ -171,7 +161,6 @@ class HomeFragment : Fragment() {
         colors.add(Color.rgb(204, 0, 204))   // Ungu tua
         return colors
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

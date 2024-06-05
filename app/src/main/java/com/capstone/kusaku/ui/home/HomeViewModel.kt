@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class HomeViewModel : ViewModel() {
 
     private val _userName = MutableLiveData<String>().apply {
-        value = "Hello, Fadhlan Hasyim" // Default value, or you can load from a repository
+        value = "Hello, Fadhlan Hasyim" // Default value, or can load from a repository
     }
     val userName: LiveData<String> = _userName
 

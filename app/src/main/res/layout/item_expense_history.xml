@@ -8,33 +8,34 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/baseline_circle_24"
-        android:layout_alignParentLeft="true" />
+        android:layout_marginRight="5dp"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tv_category"
         style="@style/SubTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
-        android:layout_toRightOf="@id/imageView" />
+        android:text="@string/category"
+        android:layout_toEndOf="@id/imageView" />
 
     <TextView
         android:id="@+id/tv_date"
         style="@style/SmallText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
+        android:text="@string/date"
         android:textColor="@color/gray"
         android:layout_below="@id/tv_category"
-        android:layout_toRightOf="@id/imageView" />
+        android:layout_toEndOf="@id/imageView" />
 
     <TextView
         android:id="@+id/tv_amount"
         style="@style/SubTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amount"
-        android:layout_alignParentRight="true"
-        android:layout_toLeftOf="@id/tv_date" />
+        android:text="@string/amount"
+        android:layout_alignParentEnd="true"
+        android:layout_toStartOf="@id/tv_date" />
 
 </RelativeLayout>

@@ -15,8 +15,6 @@ import com.capstone.kusaku.ui.home.ExpenseHistoryAdapter
 import com.capstone.kusaku.ui.home.ExpenseItem
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -41,26 +39,15 @@ class ReportFragment : Fragment() {
     ): View {
         _binding = FragmentReportBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val adviceList = getAdviceList() // Mendapatkan data nasihat dari sumber yang sesuai
-
-        // Inisialisasi RecyclerView
+        val adviceList = getAdviceList()
         rvAdvices = binding.rvAdvices
-
-        // Inisialisasi Adapter
         adviceAdapter = AdviceAdapter(adviceList)
-
-        // Atur layout manager untuk RecyclerView
         rvAdvices.layoutManager = LinearLayoutManager(requireContext())
-
-        // Set adapter ke RecyclerView
         rvAdvices.adapter = adviceAdapter
-
-        // Inisialisasi adapter riwayat pengeluaran
         expenseHistoryAdapter = ExpenseHistoryAdapter()
 
         // Set data palsu ke adapter
-        val reportExpenseList = getReportExpenseData() // Gantikan dengan cara untuk mendapatkan data pengeluaran untuk laporan Anda
+        val reportExpenseList = getReportExpenseData()
         expenseHistoryAdapter.setData(reportExpenseList)
 
         pieChart = binding.pieChartViewReport
@@ -75,7 +62,6 @@ class ReportFragment : Fragment() {
             "Advice 1",
             "Advice 2",
             "Advice 3"
-            // Tambahkan nasihat lainnya sesuai kebutuhan
         )
     }
 
@@ -87,7 +73,6 @@ class ReportFragment : Fragment() {
             ExpenseItem("Education", "500.000", "2024-06-14"),
             ExpenseItem("Sport", "100.000", "2024-06-15"),
             ExpenseItem("Internet", "200.000", "2024-06-16"),
-            // Tambahkan item lain sesuai kebutuhan
         )
     }
 
@@ -126,8 +111,6 @@ class ReportFragment : Fragment() {
         }
 
         val totalExpenseTextView: TextView = binding.tvTotalExpense
-
-        // Hitung total pengeluaran
         val totalExpense = calculateTotalExpense(expenseList)
         val formattedTotalExpense = NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(totalExpense)
         totalExpenseTextView.text = formattedTotalExpense
@@ -149,7 +132,6 @@ class ReportFragment : Fragment() {
         pieChart.data = pieData
         pieChart.invalidate()
 
-        // Create custom legend
         createCustomLegend(typeAmountMap, colors)
     }
 
@@ -164,7 +146,7 @@ class ReportFragment : Fragment() {
             legendItem.findViewById<View>(R.id.legend_color).setBackgroundColor(colors[index])
             val legendLabel = legendItem.findViewById<TextView>(R.id.legend_label)
             legendLabel.text = entry.key
-            legendLabel.setTextColor(Color.WHITE) // Set warna teks menjadi putih
+            legendLabel.setTextColor(Color.WHITE)
             legendLayout.addView(legendItem)
         }
     }
@@ -183,7 +165,6 @@ class ReportFragment : Fragment() {
         colors.add(Color.rgb(204, 0, 204))   // Ungu tua
         return colors
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
