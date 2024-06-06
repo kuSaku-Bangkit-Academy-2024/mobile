@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_transaction" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.capstone.kusaku.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_report"
+        android:name="com.capstone.kusaku.ui.report.ReportFragment"
+        android:label="@string/title_report"
+        tools:layout="@layout/fragment_report" />
 
     <fragment
         android:id="@+id/navigation_profile"

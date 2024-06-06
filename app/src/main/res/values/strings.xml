@@ -2,7 +2,7 @@
     <string name="app_name">kuSaku</string>
     <string name="title_home">Home</string>
     <string name="title_transaction">Transaction</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_report">Report</string>
     <string name="title_profile">Profile</string>
     <string name="welcome">Welcome</string>
     <string name="sub_tittle_login">Please sign in to continue</string>
@@ -28,4 +28,13 @@
     <string name="add_expense">Add Expense</string>
     <string name="description">Description</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="expense_history">Expense History</string>
+    <string name="total_expense_report">Total expense: Rp...,...,...</string>
+    <string name="advices">Advices</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="amount">Amount</string>
+    <string name="salary_income">Salary / Income</string>
+    <string name="total_expense">Total expense</string>
+    <string name="monthly_report">Monthly Report</string>
 </resources>

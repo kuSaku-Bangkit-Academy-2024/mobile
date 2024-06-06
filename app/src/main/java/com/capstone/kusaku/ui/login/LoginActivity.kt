@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.capstone.kusaku.R
 import com.capstone.kusaku.databinding.ActivityLoginBinding
+import com.capstone.kusaku.ui.main.MainActivity
 import com.capstone.kusaku.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -40,9 +41,16 @@ class LoginActivity : AppCompatActivity() {
                     loginViewModel.login()
                     moveActivity()
                      */
+                    moveActivity()
                 }
             }
         }
+    }
+
+    private fun moveActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish() // Optional: Call finish() to close the LoginActivity
     }
 
     private fun setupSignUpText() {

@@ -1,4 +1,4 @@
-package com.capstone.kusaku.ui.home
+package com.capstone.kusaku.ui.report
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.kusaku.R
-import com.capstone.kusaku.databinding.FragmentHomeBinding
+import com.capstone.kusaku.databinding.FragmentReportBinding
+import com.capstone.kusaku.ui.home.ExpenseHistoryAdapter
+import com.capstone.kusaku.ui.home.ExpenseItem
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -21,13 +22,13 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import java.text.NumberFormat
 import java.util.Locale
 
-class HomeFragment : Fragment() {
+class ReportFragment : Fragment() {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentReportBinding? = null
     private val binding get() = _binding!!
-    private var _binding: FragmentHomeBinding? = null
-    private lateinit var rvExpenseHistory: RecyclerView
+
+    private lateinit var adviceAdapter: AdviceAdapter
+    private lateinit var rvAdvices: RecyclerView
     private lateinit var expenseHistoryAdapter: ExpenseHistoryAdapter
     private lateinit var pieChart: PieChart
 
@@ -36,34 +37,35 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentReportBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.tvGreeting
-        homeViewModel.userName.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
-        rvExpenseHistory = binding.rvExpenseHistory
+        val adviceList = getAdviceList()
+        rvAdvices = binding.rvAdvices
+        adviceAdapter = AdviceAdapter(adviceList)
+        rvAdvices.layoutManager = LinearLayoutManager(requireContext())
+        rvAdvices.adapter = adviceAdapter
         expenseHistoryAdapter = ExpenseHistoryAdapter()
 
-        rvExpenseHistory.layoutManager = LinearLayoutManager(requireContext())
-        rvExpenseHistory.adapter = expenseHistoryAdapter
-
         // Set data palsu ke adapter
-        val expenseList = getExpenseHistoryData()
-        expenseHistoryAdapter.setData(expenseList)
+        val reportExpenseList = getReportExpenseData()
+        expenseHistoryAdapter.setData(reportExpenseList)
 
-        pieChart = binding.pieChartView
+        pieChart = binding.pieChartViewReport
         initPieChart()
-        showPieChart(expenseList)
+        showPieChart(reportExpenseList)
 
         return root
     }
 
-    private fun getExpenseHistoryData(): List<ExpenseItem> {
+    private fun getAdviceList(): List<String> {
+        return listOf(
+            "Advice 1",
+            "Advice 2",
+            "Advice 3"
+        )
+    }
+
+    private fun getReportExpenseData(): List<ExpenseItem> {
         return listOf(
             ExpenseItem("Food", "25.000", "2024-06-10"),
             ExpenseItem("Transportation", "30.000", "2024-06-11"),
@@ -134,7 +136,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun createCustomLegend(typeAmountMap: Map<String, Float>, colors: List<Int>) {
-        val legendLayout = binding.legendLayout
+        val legendLayout = binding.legendLayoutReport
         legendLayout.removeAllViews()
 
         val sortedEntries = typeAmountMap.entries.sortedByDescending { it.value }
@@ -142,7 +144,9 @@ class HomeFragment : Fragment() {
         for ((index, entry) in sortedEntries.withIndex()) {
             val legendItem = layoutInflater.inflate(R.layout.legend_item, legendLayout, false)
             legendItem.findViewById<View>(R.id.legend_color).setBackgroundColor(colors[index])
-            legendItem.findViewById<TextView>(R.id.legend_label).text = entry.key
+            val legendLabel = legendItem.findViewById<TextView>(R.id.legend_label)
+            legendLabel.text = entry.key
+            legendLabel.setTextColor(Color.WHITE)
             legendLayout.addView(legendItem)
         }
     }
