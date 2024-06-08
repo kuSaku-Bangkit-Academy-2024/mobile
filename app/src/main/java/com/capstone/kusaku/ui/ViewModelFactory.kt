@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.kusaku.data.remote.AuthRepository
+import com.capstone.kusaku.data.remote.UserRepository
 import com.capstone.kusaku.di.Injection
 import com.capstone.kusaku.ui.login.LoginViewModel
 import com.capstone.kusaku.ui.profile.ProfileViewModel
@@ -11,6 +12,7 @@ import com.capstone.kusaku.ui.splash.SplashViewModel
 
 class ViewModelFactory(
     private val authRepository: AuthRepository,
+    private val userRepository: UserRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -20,7 +22,7 @@ class ViewModelFactory(
                 LoginViewModel(authRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(authRepository) as T
+                ProfileViewModel(authRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
                 SplashViewModel(authRepository) as T
@@ -38,6 +40,7 @@ class ViewModelFactory(
             return INSTANCE ?: synchronized(ViewModelFactory::class.java) {
                 INSTANCE ?: ViewModelFactory(
                     Injection.provideAuthRepository(context),
+                    Injection.provideUserRepository(),
                 ).also { INSTANCE = it }
             }
         }

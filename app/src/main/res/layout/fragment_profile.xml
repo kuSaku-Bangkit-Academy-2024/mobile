@@ -40,7 +40,6 @@
         android:layout_below="@id/label_username"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="Poli Deo Lolowang"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -65,7 +64,6 @@
         android:layout_below="@id/label_email"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="poli.deo@gmail.com"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -90,32 +88,6 @@
         android:layout_below="@id/label_income"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="Rp.50.000.000"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Gender Label -->
-    <TextView
-        android:id="@+id/label_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/value_income"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:text="@string/gender"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
-
-    <!-- Gender Value -->
-    <TextView
-        android:id="@+id/value_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/label_gender"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:text="Male"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
