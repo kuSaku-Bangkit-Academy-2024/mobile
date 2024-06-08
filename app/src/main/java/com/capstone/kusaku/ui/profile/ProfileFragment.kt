@@ -7,10 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.capstone.kusaku.databinding.FragmentProfileBinding
+import com.capstone.kusaku.ui.ViewModelFactory
 import com.capstone.kusaku.ui.login.LoginActivity
+import com.capstone.kusaku.ui.main.MainActivity
+import com.capstone.kusaku.utils.ProgressBarHelper
+import com.capstone.kusaku.utils.Status
 
 class ProfileFragment : Fragment() {
+    private val viewModel: ProfileViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
+    private lateinit var progressBarHelper: ProgressBarHelper
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -18,6 +27,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        progressBarHelper = ProgressBarHelper(requireActivity() as MainActivity)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,16 +35,37 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogout.setOnClickListener {
-            Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-
-        }
+        setupView()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupView(){
+        binding.btnLogout.setOnClickListener {
+            viewModel.logout()
+            Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
+
+        viewModel.getUserDetail().observe(viewLifecycleOwner){
+            when (it.status){
+                Status.SUCCESS -> {
+                    progressBarHelper.hide()
+                    binding.valueEmail.text = it.data?.data?.email ?: "-"
+                    binding.valueUsername.text = it.data?.data?.name ?: "-"
+                    binding.valueIncome.text = (it.data?.data?.income ?: "-").toString()
+                }
+                Status.ERROR -> {
+                    progressBarHelper.hide()
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> progressBarHelper.show()
+            }
+        }
     }
 }

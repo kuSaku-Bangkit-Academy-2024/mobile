@@ -52,8 +52,18 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.cardview)
-    implementation("com.github.PhilJay:MPAndroidChart:v3.0.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // pie chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.0.3")
+    
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Preference
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
