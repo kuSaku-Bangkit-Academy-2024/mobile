@@ -17,7 +17,6 @@ import com.capstone.kusaku.R
 import com.capstone.kusaku.databinding.ActivityRegisterBinding
 import com.capstone.kusaku.ui.ViewModelFactory
 import com.capstone.kusaku.ui.login.LoginActivity
-import com.capstone.kusaku.ui.main.MainActivity
 import com.capstone.kusaku.utils.ProgressBarHelper
 import com.capstone.kusaku.utils.Status
 
