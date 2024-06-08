@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
             when (result.status) {
                 Status.SUCCESS -> {
                     progressBarHelper.hide()
-                    Toast.makeText(this@LoginActivity, "Success login", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Successfully logged in", Toast.LENGTH_SHORT).show()
                     moveActivity()
                 }
                 Status.ERROR -> {

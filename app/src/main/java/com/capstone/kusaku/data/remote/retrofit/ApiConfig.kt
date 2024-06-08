@@ -1,6 +1,5 @@
 package com.capstone.kusaku.data.remote.retrofit
 
-import com.github.mikephil.charting.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

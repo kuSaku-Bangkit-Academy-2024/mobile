@@ -3,7 +3,9 @@ package com.capstone.kusaku.data.remote
 import com.capstone.kusaku.data.local.UserSession
 import com.capstone.kusaku.data.local.UserPreference
 import com.capstone.kusaku.data.remote.request.LoginRequest
+import com.capstone.kusaku.data.remote.request.RegisterRequest
 import com.capstone.kusaku.data.remote.response.LoginResponse
+import com.capstone.kusaku.data.remote.response.RegisterResponse
 import com.capstone.kusaku.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
 
@@ -13,6 +15,10 @@ class AuthRepository (
 ){
     suspend fun login(loginRequest: LoginRequest): LoginResponse {
         return apiService.login(loginRequest)
+    }
+
+    suspend fun register(registerRequest: RegisterRequest): RegisterResponse {
+        return apiService.register(registerRequest)
     }
 
     suspend fun logout() {

@@ -8,6 +8,7 @@ import com.capstone.kusaku.data.remote.UserRepository
 import com.capstone.kusaku.di.Injection
 import com.capstone.kusaku.ui.login.LoginViewModel
 import com.capstone.kusaku.ui.profile.ProfileViewModel
+import com.capstone.kusaku.ui.register.RegisterViewModel
 import com.capstone.kusaku.ui.splash.SplashViewModel
 
 class ViewModelFactory(
@@ -26,6 +27,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
                 SplashViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
+                RegisterViewModel(authRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -37,4 +37,7 @@
     <string name="salary_income">Salary / Income</string>
     <string name="total_expense">Total expense</string>
     <string name="monthly_report">Monthly Report</string>
+    <string name="monthly_income">Monthly Income</string>
+    <string name="name">Name</string>
+    <string name="passwords_dont_match">"Passwords don't match"</string>
 </resources>
