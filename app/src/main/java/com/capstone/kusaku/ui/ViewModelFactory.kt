@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.capstone.kusaku.data.remote.AuthRepository
 import com.capstone.kusaku.di.Injection
 import com.capstone.kusaku.ui.login.LoginViewModel
+import com.capstone.kusaku.ui.profile.ProfileViewModel
+import com.capstone.kusaku.ui.splash.SplashViewModel
 
 class ViewModelFactory(
     private val authRepository: AuthRepository,
@@ -16,6 +18,12 @@ class ViewModelFactory(
         return when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
+                SplashViewModel(authRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

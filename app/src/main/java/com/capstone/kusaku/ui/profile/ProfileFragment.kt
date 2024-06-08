@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.capstone.kusaku.databinding.FragmentProfileBinding
+import com.capstone.kusaku.ui.ViewModelFactory
 import com.capstone.kusaku.ui.login.LoginActivity
 
 class ProfileFragment : Fragment() {
+    private val viewModel: ProfileViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -26,10 +31,11 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogout.setOnClickListener {
+            viewModel.logout()
             Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
-
+            activity?.finish()
         }
     }
 
