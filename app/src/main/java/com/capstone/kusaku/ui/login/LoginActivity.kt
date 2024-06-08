@@ -9,20 +9,34 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import com.capstone.kusaku.R
+import com.capstone.kusaku.data.remote.response.LoginResponse
 import com.capstone.kusaku.databinding.ActivityLoginBinding
+import com.capstone.kusaku.ui.ViewModelFactory
 import com.capstone.kusaku.ui.main.MainActivity
 import com.capstone.kusaku.ui.register.RegisterActivity
+import com.capstone.kusaku.utils.ProgressBarHelper
+import com.capstone.kusaku.utils.Resource
+import com.capstone.kusaku.utils.Status
 
 class LoginActivity : AppCompatActivity() {
+    private val viewModel by viewModels<LoginViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var progressBarHelper: ProgressBarHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        progressBarHelper = ProgressBarHelper(this)
 
         setupSignUpText()
         setupAction()
@@ -31,17 +45,45 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.apply {
             btnLogin.setOnClickListener {
-                if (edtEmailLogin.length() == 0 || edtPasswordLogin.length() == 0) {
-                    edtEmailLogin.error = getString(R.string.required_field)
-                    edtPasswordLogin.error = getString(R.string.required_field)
-                } else if (edtEmailLogin.length() != 0 && edtPasswordLogin.length() != 0) {
-                    /* move with data, next task
-                    postText()
-                    showToast()
-                    loginViewModel.login()
+                val email = edtEmailLogin.text.toString()
+                val password = edtPasswordLogin.text.toString()
+                if (validateInput(email, password)) {
+                    observeLogin(viewModel.login(email, password))
+                }
+            }
+        }
+    }
+
+    private fun validateInput(email: String, password: String): Boolean {
+        var isValid = true
+
+        if (email.isEmpty()) {
+            binding.edtEmailLogin.error = getString(R.string.required_field)
+            isValid = false
+        }
+
+        if (password.isEmpty()) {
+            binding.edtPasswordLogin.error = getString(R.string.required_field)
+            isValid = false
+        }
+
+        return isValid
+    }
+
+    private fun observeLogin(liveData:  LiveData<Resource<LoginResponse>>) {
+        liveData.observe(this@LoginActivity) { result ->
+            when (result.status) {
+                Status.SUCCESS -> {
+                    progressBarHelper.hide()
+                    Toast.makeText(this@LoginActivity, "Success login", Toast.LENGTH_SHORT).show()
                     moveActivity()
-                     */
-                    moveActivity()
+                }
+                Status.ERROR -> {
+                    progressBarHelper.hide()
+                    Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    progressBarHelper.show()
                 }
             }
         }
