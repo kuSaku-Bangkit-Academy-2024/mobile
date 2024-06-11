@@ -40,4 +40,6 @@
     <string name="monthly_income">Monthly Income</string>
     <string name="name">Name</string>
     <string name="passwords_dont_match">"Passwords don't match"</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_category">Select Category</string>
 </resources>

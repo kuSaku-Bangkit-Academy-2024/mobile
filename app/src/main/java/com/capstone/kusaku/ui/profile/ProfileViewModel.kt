@@ -1,5 +1,6 @@
 package com.capstone.kusaku.ui.profile
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
@@ -26,6 +27,7 @@ class ProfileViewModel(
         emit(Resource.loading())
         try {
             val token = runBlocking { authRepository.getSession().first().token }
+            Log.d("TokenDebug", "Token used for getUserDetail(): $token")
             val response = userRepository.getUserDetail("Bearer $token")
             emit(Resource.success(response))
         } catch (exception: Exception) {
