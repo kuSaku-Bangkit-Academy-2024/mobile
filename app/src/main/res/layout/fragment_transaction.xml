@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Form Container -->
+    <!-- Form Add Expense -->
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
 
             <!-- Nominal Input -->
             <TextView
-                android:id="@+id/tv_password_nominal"
+                android:id="@+id/tv_nominal"
                 style="@style/SmallText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,10 +96,67 @@
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Dropdown Category -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_category"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/select_category"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="5dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:paddingVertical="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:orientation="horizontal">
+
+                <!-- Use AI Button-->
+                <Button
+                    android:id="@+id/btn_use_ai"
+                    style="@style/SmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Use AI"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <!-- Select Date Button -->
+                <Button
+                    android:id="@+id/btn_date_picker"
+                    style="@style/SmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/select_date"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin2"/>
+            </LinearLayout>
+
             <!-- Add Button -->
             <Button
                 android:layout_marginTop="30dp"
-                android:id="@+id/btn_logout"
+                android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:text="@string/add"
@@ -108,8 +165,9 @@
                 android:textStyle="bold"
                 android:textAllCaps="false"
                 app:cornerRadius="20dp"
-                android:textSize="18sp" />
-
+                android:textSize="18sp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
