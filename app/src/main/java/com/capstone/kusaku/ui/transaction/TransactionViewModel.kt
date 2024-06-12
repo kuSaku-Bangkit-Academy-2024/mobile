@@ -57,14 +57,8 @@ class TransactionViewModel(
             val token = getToken()
             val transactionRequest = TransactionRequest(timestamp, describe, price, category)
             val response = apiService.addTransaction(transactionRequest, "Bearer $token")
-            if (response.status == "success") {
-                emit(Resource.success(response))
-            } else {
-                _errorMessage.postValue("Failed to add expense")
-                emit(Resource.error("Failed to add expense"))
-            }
+            emit(Resource.success(response))
         } catch (exception: Exception) {
-            _errorMessage.postValue(exception.message ?: "Error occurred")
             emit(Resource.error(exception.message ?: "Error occurred"))
         }
     }
