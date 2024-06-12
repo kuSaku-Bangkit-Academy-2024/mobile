@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.capstone.kusaku.R
 import com.capstone.kusaku.databinding.FragmentTransactionBinding
 import com.capstone.kusaku.ui.ViewModelFactory
@@ -149,6 +150,7 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
                         progressBarHelper.hide()
                         val message = viewModel.handleTransactionResponse(response)
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.navigation_home)
                     }
                     Status.ERROR -> {
                         progressBarHelper.hide()
