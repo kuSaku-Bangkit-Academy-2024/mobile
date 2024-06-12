@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import com.capstone.kusaku.data.remote.AuthRepository
 import com.capstone.kusaku.data.remote.CategoryRepository
-import com.capstone.kusaku.data.remote.request.DescriptionRequest
 import com.capstone.kusaku.data.remote.request.TransactionRequest
 import com.capstone.kusaku.data.remote.response.TransactionResponse
 import com.capstone.kusaku.data.remote.retrofit.ApiService
@@ -15,7 +13,6 @@ import com.capstone.kusaku.utils.Resource
 import com.capstone.kusaku.utils.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -44,8 +41,14 @@ class TransactionViewModel(
         try {
             val token = getToken()
             val response = categoryRepository.predictCategory(description, "Bearer $token")
-            _category.postValue(response.category)
-            emit(Resource.success(response))
+
+            if (response.status == "success") {
+                val category = response.data.category
+                _category.postValue(category)
+                emit(Resource.success(response))
+            } else {
+                emit(Resource.error("Prediction failed: ${response.status ?: "Unknown error"}"))
+            }
         } catch (exception: Exception) {
             emit(Resource.error(exception.message ?: "Error occurred"))
         }

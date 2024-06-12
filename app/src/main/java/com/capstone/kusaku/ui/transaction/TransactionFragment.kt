@@ -17,8 +17,7 @@ import com.capstone.kusaku.utils.ProgressBarHelper
 import com.capstone.kusaku.utils.Status
 import java.util.Calendar
 
-class TransactionFragment : Fragment() {
-    private val viewModel: TransactionViewModel by viewModels {
+class TransactionFragment : Fragment() { private val viewModel: TransactionViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
     private lateinit var progressBarHelper: ProgressBarHelper
@@ -39,10 +38,9 @@ class TransactionFragment : Fragment() {
 
         setupView()
         setupCategoryDropdown()
-
     }
 
-    private fun setupView(){
+    private fun setupView() {
         binding.btnAdd.setOnClickListener {
             addTransaction()
         }
@@ -56,7 +54,14 @@ class TransactionFragment : Fragment() {
         }
 
         viewModel.category.observe(viewLifecycleOwner) { category ->
-            binding.dropdownCategory.setText(category, false)
+            category?.let {
+                val adapter = binding.dropdownCategory.adapter as ArrayAdapter<String>
+                if (adapter.getPosition(category) == -1) {
+                    adapter.add(category)
+                    adapter.notifyDataSetChanged()
+                }
+                binding.dropdownCategory.setText(category, false)
+            }
         }
 
         viewModel.transactionResponse.observe(viewLifecycleOwner) { response ->
@@ -77,26 +82,36 @@ class TransactionFragment : Fragment() {
 
     private fun useAiToCategorize() {
         val description = binding.edtDescription.text.toString()
-        viewModel.predictCategory(description).observe(viewLifecycleOwner) { it ->
-            when (it.status) {
+        viewModel.predictCategory(description).observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
                 Status.SUCCESS -> {
                     progressBarHelper.hide()
-                    val category = it.data?.category
-                    if (category != null) {
+                    val category = resource.data?.data?.category
+                    if (!category.isNullOrEmpty()) {
                         val adapter = binding.dropdownCategory.adapter as ArrayAdapter<String>
-                        adapter.clear()
-                        adapter.add(category)
-                        adapter.notifyDataSetChanged()
+                        if (!isCategoryInAdapter(adapter, category)) {
+                            adapter.add(category)
+                            adapter.notifyDataSetChanged()
+                        }
                         binding.dropdownCategory.setText(category, false)
                     }
                 }
                 Status.ERROR -> {
                     progressBarHelper.hide()
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
                 }
                 Status.LOADING -> progressBarHelper.show()
             }
         }
+    }
+
+    private fun isCategoryInAdapter(adapter: ArrayAdapter<String>, category: String): Boolean {
+        for (i in 0 until adapter.count) {
+            if (adapter.getItem(i) == category) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun showDatePicker() {
