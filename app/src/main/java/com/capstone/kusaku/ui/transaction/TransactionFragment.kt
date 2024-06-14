@@ -31,7 +31,6 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inisialisasi progressBarHelper di onCreateView
         progressBarHelper = ProgressBarHelper(requireActivity() as MainActivity)
         adapter = ArrayAdapter(requireContext(), R.layout.list_item_category, categories)
         _binding = FragmentTransactionBinding.inflate(inflater, container, false)
