@@ -22,6 +22,8 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
         ViewModelFactory.getInstance(requireContext())
     }
     private lateinit var progressBarHelper: ProgressBarHelper
+    private lateinit var adapter: ArrayAdapter<String>
+    private val categories = ArrayList<String>()
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding!!
 
@@ -30,6 +32,7 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
         savedInstanceState: Bundle?
     ): View {
         progressBarHelper = ProgressBarHelper(requireActivity() as MainActivity)
+        adapter = ArrayAdapter(requireContext(), R.layout.list_item_category, categories)
         _binding = FragmentTransactionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -56,7 +59,6 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
 
         viewModel.category.observe(viewLifecycleOwner) { category ->
             category?.let {
-                val adapter = binding.dropdownCategory.adapter as ArrayAdapter<String>
                 if (adapter.getPosition(category) == -1) {
                     adapter.add(category)
                     adapter.notifyDataSetChanged()
