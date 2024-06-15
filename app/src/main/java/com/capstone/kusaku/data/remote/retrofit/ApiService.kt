@@ -5,6 +5,7 @@ import com.capstone.kusaku.data.remote.request.LoginRequest
 import com.capstone.kusaku.data.remote.request.RegisterRequest
 import com.capstone.kusaku.data.remote.request.TransactionRequest
 import com.capstone.kusaku.data.remote.response.CategoryResponse
+import com.capstone.kusaku.data.remote.response.GetExpensesByCategoryResponse
 import com.capstone.kusaku.data.remote.response.LoginResponse
 import com.capstone.kusaku.data.remote.response.RegisterResponse
 import com.capstone.kusaku.data.remote.response.TransactionResponse
@@ -13,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -42,4 +44,10 @@ interface ApiService {
         @Body transactionRequest: TransactionRequest,
         @Header("Authorization") token: String
     ): TransactionResponse
+
+    @GET("wallets/expenses")
+    suspend fun getExpensesByCategory(
+        @Header("Authorization") token: String,
+        @Query("date") date: String
+    ): GetExpensesByCategoryResponse
 }

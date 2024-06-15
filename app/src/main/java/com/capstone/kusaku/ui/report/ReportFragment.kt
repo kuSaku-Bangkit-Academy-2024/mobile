@@ -48,7 +48,7 @@ class ReportFragment : Fragment() {
 
         // Set data palsu ke adapter
         val reportExpenseList = getReportExpenseData()
-        expenseHistoryAdapter.setData(reportExpenseList)
+//        expenseHistoryAdapter.setData(reportExpenseList)
 
         pieChart = binding.pieChartViewReport
         initPieChart()

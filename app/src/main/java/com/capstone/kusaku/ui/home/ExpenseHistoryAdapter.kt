@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.kusaku.R
+import com.capstone.kusaku.data.remote.response.ExpenseItem
 
 class ExpenseHistoryAdapter : RecyclerView.Adapter<ExpenseHistoryAdapter.ViewHolder>() {
 
@@ -38,8 +39,8 @@ class ExpenseHistoryAdapter : RecyclerView.Adapter<ExpenseHistoryAdapter.ViewHol
         fun bind(expenseItem: ExpenseItem?) {
             if (expenseItem != null) {
                 categoryTextView.text = expenseItem.category
-                amountTextView.text = expenseItem.amount
-                dateTextView.text = expenseItem.date
+                amountTextView.text = expenseItem.totalExpense.toString()
+                dateTextView.text = "expenseItem.date"
             } else {
                 // Tangani kasus null (misalnya, tampilkan placeholder atau pesan kesalahan)
             }

@@ -20,7 +20,7 @@
         style="@style/Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello, Fadhlan Hasyim"
+        android:text="Hello"
         android:textColor="@android:color/white"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -71,7 +71,7 @@
                         style="@style/SubTitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rp50.000.000"
+                        android:text="Rp-"
                         android:textColor="@color/teal_700"
                         android:textStyle="bold"
                         android:paddingTop="4dp" />
@@ -96,7 +96,7 @@
                         style="@style/SubTitleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rp1.000.000"
+                        android:text="Rp-"
                         android:textColor="@color/teal_700"
                         android:textStyle="bold"
                         android:paddingTop="4dp" />

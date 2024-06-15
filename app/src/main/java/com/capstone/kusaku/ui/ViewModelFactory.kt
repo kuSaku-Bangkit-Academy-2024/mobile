@@ -8,6 +8,7 @@ import com.capstone.kusaku.data.remote.CategoryRepository
 import com.capstone.kusaku.data.remote.UserRepository
 import com.capstone.kusaku.data.remote.retrofit.ApiService
 import com.capstone.kusaku.di.Injection
+import com.capstone.kusaku.ui.home.HomeViewModel
 import com.capstone.kusaku.ui.login.LoginViewModel
 import com.capstone.kusaku.ui.profile.ProfileViewModel
 import com.capstone.kusaku.ui.register.RegisterViewModel
@@ -38,6 +39,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
                 TransactionViewModel(apiService, authRepository, categoryRepository) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(authRepository, categoryRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
