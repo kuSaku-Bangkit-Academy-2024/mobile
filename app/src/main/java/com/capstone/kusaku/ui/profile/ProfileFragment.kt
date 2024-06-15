@@ -56,9 +56,9 @@ class ProfileFragment : Fragment() {
             when (it.status){
                 Status.SUCCESS -> {
                     progressBarHelper.hide()
-                    binding.valueEmail.text = it.data?.data?.email ?: "-"
-                    binding.valueUsername.text = it.data?.data?.name ?: "-"
-                    binding.valueIncome.text = (it.data?.data?.income ?: "-").toString()
+                    binding.valueEmail.text = it.data?.email ?: "-"
+                    binding.valueUsername.text = it.data?.username ?: "-"
+                    binding.valueIncome.text = (it.data?.income ?: "-").toString()
                 }
                 Status.ERROR -> {
                     progressBarHelper.hide()

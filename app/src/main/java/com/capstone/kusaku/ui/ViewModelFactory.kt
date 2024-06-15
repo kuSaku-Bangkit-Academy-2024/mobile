@@ -29,7 +29,7 @@ class ViewModelFactory(
                 LoginViewModel(authRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(authRepository, userRepository) as T
+                ProfileViewModel(authRepository) as T
             }
             modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
                 SplashViewModel(authRepository) as T

@@ -14,7 +14,6 @@ import kotlinx.coroutines.runBlocking
 
 class ProfileViewModel(
     private val authRepository: AuthRepository,
-    private val userRepository: UserRepository
     ) : ViewModel() {
 
     fun logout() {
@@ -26,9 +25,7 @@ class ProfileViewModel(
     fun getUserDetail() = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
-            val token = runBlocking { authRepository.getSession().first().token }
-            Log.d("TokenDebug", "Token used for getUserDetail(): $token")
-            val response = userRepository.getUserDetail("Bearer $token")
+            val response = authRepository.getSession().first()
             emit(Resource.success(response))
         } catch (exception: Exception) {
             emit(Resource.error(exception.message ?: "Error occurred"))
