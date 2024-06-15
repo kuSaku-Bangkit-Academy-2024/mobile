@@ -8,6 +8,7 @@ import com.capstone.kusaku.data.remote.CategoryRepository
 import com.capstone.kusaku.data.remote.UserRepository
 import com.capstone.kusaku.data.remote.retrofit.ApiService
 import com.capstone.kusaku.di.Injection
+import com.capstone.kusaku.ui.home.HomeViewModel
 import com.capstone.kusaku.ui.login.LoginViewModel
 import com.capstone.kusaku.ui.profile.ProfileViewModel
 import com.capstone.kusaku.ui.register.RegisterViewModel
@@ -25,7 +26,7 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
-                LoginViewModel(authRepository) as T
+                LoginViewModel(authRepository, userRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(authRepository, userRepository) as T

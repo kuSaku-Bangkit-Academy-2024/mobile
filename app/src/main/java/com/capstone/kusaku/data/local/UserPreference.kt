@@ -15,14 +15,20 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     suspend fun saveSession(user: UserSession) {
         dataStore.edit { preferences ->
-            preferences[TOKEN_KEY] = user.token
+            user.token?.let { preferences[TOKEN_KEY] = it }
+            user.username?.let { preferences[USERNAME_KEY] = it }
+            user.email?.let { preferences[EMAIL_KEY] = it }
+            user.income?.let { preferences[INCOME_KEY] = it }
         }
     }
 
     fun getSession(): Flow<UserSession> {
         return dataStore.data.map { preferences ->
             UserSession(
-                preferences[TOKEN_KEY] ?: ""
+                token = preferences[TOKEN_KEY],
+                username = preferences[USERNAME_KEY],
+                email = preferences[EMAIL_KEY],
+                income = preferences[INCOME_KEY]
             )
         }
     }
@@ -38,6 +44,9 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private var INSTANCE: UserPreference? = null
 
         private val TOKEN_KEY = stringPreferencesKey("token")
+        private val USERNAME_KEY = stringPreferencesKey("username")
+        private val EMAIL_KEY = stringPreferencesKey("email")
+        private val INCOME_KEY = stringPreferencesKey("income")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
