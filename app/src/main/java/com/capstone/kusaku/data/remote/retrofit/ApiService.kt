@@ -8,6 +8,7 @@ import com.capstone.kusaku.data.remote.request.TransactionRequest
 import com.capstone.kusaku.data.remote.response.CategoryResponse
 import com.capstone.kusaku.data.remote.response.GetAdvicesResponse
 import com.capstone.kusaku.data.remote.response.GetExpensesByCategoryResponse
+import com.capstone.kusaku.data.remote.response.GetExpensesHistoryResponse
 import com.capstone.kusaku.data.remote.response.LoginResponse
 import com.capstone.kusaku.data.remote.response.RefreshTokenResponse
 import com.capstone.kusaku.data.remote.response.RegisterResponse
@@ -59,4 +60,9 @@ interface ApiService {
     suspend fun refreshToken(
         @Body refreshTokenRequest: RefreshTokenRequest
     ): RefreshTokenResponse
+
+    @GET("wallets/expenses/month")
+    suspend fun getExpensesHistory(
+        @Query("date") date: String
+    ): GetExpensesHistoryResponse
 }

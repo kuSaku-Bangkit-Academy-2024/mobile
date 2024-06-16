@@ -11,17 +11,20 @@ data class GetExpensesByCategoryResponse(
 	val status: String
 )
 
-data class ExpenseItem(
+data class ExpenseItemAggregate(
 
 	@field:SerializedName("category")
 	val category: String,
 
 	@field:SerializedName("totalExpense")
-	val totalExpense: Int
+	val totalExpense: Int,
+
+	@field:SerializedName("date")
+	val date: String
 )
 
 data class Data(
 
 	@field:SerializedName("expenses")
-	val expenses: List<ExpenseItem>
+	val expenses: List<ExpenseItemAggregate>
 )

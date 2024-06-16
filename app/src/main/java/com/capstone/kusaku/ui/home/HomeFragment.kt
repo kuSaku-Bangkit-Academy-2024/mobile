@@ -1,5 +1,6 @@
 package com.capstone.kusaku.ui.home
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.kusaku.R
-import com.capstone.kusaku.data.remote.response.ExpenseItem
+import com.capstone.kusaku.data.remote.response.ExpenseItemAggregate
 import com.capstone.kusaku.databinding.FragmentHomeBinding
 import com.capstone.kusaku.ui.ViewModelFactory
 import com.capstone.kusaku.ui.main.MainActivity
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
     private lateinit var pieChart: PieChart
     private lateinit var progressBarHelper: ProgressBarHelper
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,26 +59,42 @@ class HomeFragment : Fragment() {
             }
         }
 
-        rvExpenseHistory = binding.rvExpenseHistory
-        expenseHistoryAdapter = ExpenseHistoryAdapter()
-
-        rvExpenseHistory.layoutManager = LinearLayoutManager(requireContext())
-        rvExpenseHistory.adapter = expenseHistoryAdapter
-
         viewModel.getTotalExpensesByCategory().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    it.data?.data?.let { it1 -> expenseHistoryAdapter.setData(it1.expenses) }
-                    pieChart = binding.pieChartView
-                    initPieChart()
-                    it.data?.data?.let { it1 -> showPieChart(it1.expenses) }
+                    it.data?.data?.let { data ->
+                        val expenses = data.expenses
+                        pieChart = binding.pieChartView
+                        initPieChart()
+                        showPieChart(expenses)
+                    }
                     progressBarHelper.hide()
                 }
-
                 Status.ERROR -> {
                     progressBarHelper.hide()
                 }
+                Status.LOADING -> {
+                    progressBarHelper.show()
+                }
+            }
+        }
 
+        rvExpenseHistory = binding.rvExpenseHistory
+        expenseHistoryAdapter = ExpenseHistoryAdapter()
+        rvExpenseHistory.layoutManager = LinearLayoutManager(requireContext())
+        rvExpenseHistory.adapter = expenseHistoryAdapter
+        viewModel.getExpensesHistory().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.data?.let { data ->
+                        val expenses = data.expenses
+                        (rvExpenseHistory.adapter as? ExpenseHistoryAdapter)?.setData(expenses)
+                    }
+                    progressBarHelper.hide()
+                }
+                Status.ERROR -> {
+                    progressBarHelper.hide()
+                }
                 Status.LOADING -> {
                     progressBarHelper.show()
                 }
@@ -86,13 +104,8 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    private fun calculateTotalExpense(expenseList: List<ExpenseItem>): Float {
-        var totalExpense = 0f
-        for (expenseItem in expenseList) {
-            val amount = expenseItem.totalExpense.toFloat()
-            totalExpense += amount
-        }
-        return totalExpense
+    private fun calculateTotalExpense(expenseList: List<ExpenseItemAggregate>): Float {
+        return expenseList.sumOf { it.totalExpense.toDouble() }.toFloat()
     }
 
     private fun initPieChart() {
@@ -108,7 +121,7 @@ class HomeFragment : Fragment() {
         pieChart.legend.isEnabled = false
     }
 
-    private fun showPieChart(expenseList: List<ExpenseItem>) {
+    private fun showPieChart(expenseList: List<ExpenseItemAggregate>) {
         val pieEntries = ArrayList<PieEntry>()
         val typeAmountMap = mutableMapOf<String, Float>()
         for (expenseItem in expenseList) {

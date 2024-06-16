@@ -24,6 +24,7 @@ class LoginViewModel(
                 userData?.name,
                 userData?.email,
                 userData?.income.toString(),
+                loginData.refreshToken,
             )
             authRepository.saveSession(userSession)
         }
@@ -34,9 +35,10 @@ class LoginViewModel(
         try {
             val loginRequest = LoginRequest(email, password)
             val loginResponse = authRepository.login(loginRequest)
-
+            println("PEnting ac: " + loginResponse.data.accessToken)
+            println("Penting ref: " + loginResponse.data.refreshToken)
             val userResponse =
-                userRepository.getUserDetail("Bearer: ${loginResponse.data.accessToken}")
+                userRepository.getUserDetail("Bearer ${loginResponse.data.accessToken}")
             saveUserSession(userResponse.data, loginResponse.data)
 
             emit(Resource.success(loginResponse))

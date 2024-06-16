@@ -5,4 +5,5 @@ data class UserSession(
     val username: String?,
     val email: String?,
     val income: String?,
+    val refreshToken: String?
 )

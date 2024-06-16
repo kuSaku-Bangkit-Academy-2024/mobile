@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun navigateToNextScreen() {
         viewModel.getUserSession().observe(this@SplashActivity){
-            if (it.token?.isEmpty() == true){
+            if (it.token.isNullOrEmpty()){
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
