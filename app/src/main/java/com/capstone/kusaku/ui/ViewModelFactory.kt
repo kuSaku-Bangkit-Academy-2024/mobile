@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.kusaku.data.remote.AuthRepository
-import com.capstone.kusaku.data.remote.CategoryRepository
+import com.capstone.kusaku.data.remote.ExpenseRepository
 import com.capstone.kusaku.data.remote.UserRepository
 import com.capstone.kusaku.data.remote.retrofit.ApiService
 import com.capstone.kusaku.di.Injection
@@ -12,6 +12,7 @@ import com.capstone.kusaku.ui.home.HomeViewModel
 import com.capstone.kusaku.ui.login.LoginViewModel
 import com.capstone.kusaku.ui.profile.ProfileViewModel
 import com.capstone.kusaku.ui.register.RegisterViewModel
+import com.capstone.kusaku.ui.report.ReportViewModel
 import com.capstone.kusaku.ui.splash.SplashViewModel
 import com.capstone.kusaku.ui.transaction.TransactionViewModel
 
@@ -19,7 +20,7 @@ class ViewModelFactory(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
     private val apiService: ApiService,
-    private val categoryRepository: CategoryRepository
+    private val expenseRepository: ExpenseRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -38,10 +39,13 @@ class ViewModelFactory(
                 RegisterViewModel(authRepository) as T
             }
             modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
-                TransactionViewModel(apiService, authRepository, categoryRepository) as T
+                TransactionViewModel(apiService, authRepository, expenseRepository) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(authRepository, categoryRepository) as T
+                HomeViewModel(authRepository, expenseRepository) as T
+            }
+            modelClass.isAssignableFrom(ReportViewModel::class.java) -> {
+                ReportViewModel(authRepository, expenseRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
@@ -56,9 +60,9 @@ class ViewModelFactory(
             return INSTANCE ?: synchronized(ViewModelFactory::class.java) {
                 INSTANCE ?: ViewModelFactory(
                     Injection.provideAuthRepository(context),
-                    Injection.provideUserRepository(),
-                    Injection.provideApiService(),
-                    Injection.provideCategoryRepository()
+                    Injection.provideUserRepository(context),
+                    Injection.provideApiService(context),
+                    Injection.provideExpenseRepository(context)
                 ).also { INSTANCE = it }
             }
         }
