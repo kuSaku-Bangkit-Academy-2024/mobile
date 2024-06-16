@@ -126,7 +126,6 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
         val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             val formattedDate = viewModel.convertDateFormat(selectedDate, "dd/MM/yyyy", "yyyy-MM-dd")
-            Toast.makeText(requireContext(), "Selected date: $formattedDate", Toast.LENGTH_SHORT).show()
             binding.btnDatePicker.text = formattedDate
         }, year, month, day)
 
