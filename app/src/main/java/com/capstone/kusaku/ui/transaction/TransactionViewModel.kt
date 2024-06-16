@@ -5,22 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.capstone.kusaku.data.remote.AuthRepository
-import com.capstone.kusaku.data.remote.CategoryRepository
+import com.capstone.kusaku.data.remote.ExpenseRepository
 import com.capstone.kusaku.data.remote.request.TransactionRequest
 import com.capstone.kusaku.data.remote.response.TransactionResponse
 import com.capstone.kusaku.data.remote.retrofit.ApiService
 import com.capstone.kusaku.utils.Resource
 import com.capstone.kusaku.utils.Status
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.firstOrNull
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class TransactionViewModel(
     private val apiService: ApiService,
-    private val authRepository: AuthRepository,
-    private val categoryRepository: CategoryRepository
+    private val expenseRepository: ExpenseRepository
 ) : ViewModel() {
 
     private val _transactionResponse = MutableLiveData<Resource<TransactionResponse>>()
@@ -32,22 +30,17 @@ class TransactionViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-    private suspend fun getToken(): String {
-        return authRepository.getSession().firstOrNull()?.token ?: "defaultToken"
-    }
-
     fun predictCategory(description: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
-            val token = getToken()
-            val response = categoryRepository.predictCategory(description, "Bearer $token")
+            val response = expenseRepository.predictCategory(description)
 
             if (response.status == "success") {
                 val category = response.data.category
                 _category.postValue(category)
                 emit(Resource.success(response))
             } else {
-                emit(Resource.error("Prediction failed: ${response.status ?: "Unknown error"}"))
+                emit(Resource.error("Prediction failed: ${response.status}"))
             }
         } catch (exception: Exception) {
             emit(Resource.error(exception.message ?: "Error occurred"))
@@ -57,9 +50,8 @@ class TransactionViewModel(
     fun addTransaction(timestamp: String, describe: String, price: Int, category: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
-            val token = getToken()
             val transactionRequest = TransactionRequest(timestamp, describe, price, category)
-            val response = apiService.addTransaction(transactionRequest, "Bearer $token")
+            val response = apiService.addTransaction(transactionRequest)
             emit(Resource.success(response))
         } catch (exception: Exception) {
             emit(Resource.error(exception.message ?: "Error occurred"))

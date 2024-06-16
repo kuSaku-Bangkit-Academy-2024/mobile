@@ -29,7 +29,6 @@
     <string name="description">Description</string>
     <string name="sign_up">SIGN UP</string>
     <string name="expense_history">Expense History</string>
-    <string name="total_expense_report">Total expense: Rp...,...,...</string>
     <string name="advices">Advices</string>
     <string name="category">Category</string>
     <string name="date">Date</string>
@@ -42,4 +41,7 @@
     <string name="passwords_dont_match">"Passwords don't match"</string>
     <string name="select_date">Select Date</string>
     <string name="select_category">Select Category</string>
+    <string name="use_ai">✨ Use AI</string>
+    <string name="greetings">Hello, </string>
+    <string name="no_data_available">No data available</string>
 </resources>

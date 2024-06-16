@@ -2,17 +2,18 @@ package com.capstone.kusaku.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.capstone.kusaku.databinding.FragmentProfileBinding
 import com.capstone.kusaku.ui.ViewModelFactory
 import com.capstone.kusaku.ui.login.LoginActivity
 import com.capstone.kusaku.ui.main.MainActivity
 import com.capstone.kusaku.utils.ProgressBarHelper
+import com.capstone.kusaku.utils.RupiahFormatter
 import com.capstone.kusaku.utils.Status
 
 class ProfileFragment : Fragment() {
@@ -56,9 +57,10 @@ class ProfileFragment : Fragment() {
             when (it.status){
                 Status.SUCCESS -> {
                     progressBarHelper.hide()
-                    binding.valueEmail.text = it.data?.data?.email ?: "-"
-                    binding.valueUsername.text = it.data?.data?.name ?: "-"
-                    binding.valueIncome.text = (it.data?.data?.income ?: "-").toString()
+                    binding.valueEmail.text = it.data?.email ?: "-"
+                    binding.valueUsername.text = it.data?.username ?: "-"
+                    binding.valueIncome.text = it.data?.income?.toLong()
+                        ?.let { it1 -> RupiahFormatter.format(it1) }
                 }
                 Status.ERROR -> {
                     progressBarHelper.hide()

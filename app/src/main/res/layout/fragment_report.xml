@@ -33,11 +33,23 @@
         style="@style/SubTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="March - April 2024"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_monthly_report" />
+
+    <TextView
+        android:id="@+id/no_data"
+        style="@style/SubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data_available"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tv_date_report"
+        app:layout_constraintBottom_toTopOf="@id/tv_total_expense" />
 
     <LinearLayout
         android:id="@+id/ll_report_piechart"
@@ -71,7 +83,6 @@
         style="@style/SmallText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/total_expense_report"
         android:textColor="@android:color/white"
         android:paddingBottom="5dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"

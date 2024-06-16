@@ -1,5 +1,6 @@
 package com.capstone.kusaku.ui.home
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.kusaku.R
+import com.capstone.kusaku.data.remote.response.ExpenseItemAggregate
 import com.capstone.kusaku.databinding.FragmentHomeBinding
+import com.capstone.kusaku.ui.ViewModelFactory
+import com.capstone.kusaku.ui.main.MainActivity
+import com.capstone.kusaku.utils.ProgressBarHelper
+import com.capstone.kusaku.utils.RupiahFormatter
+import com.capstone.kusaku.utils.Status
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -22,65 +29,83 @@ import java.text.NumberFormat
 import java.util.Locale
 
 class HomeFragment : Fragment() {
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private val viewModel: HomeViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private val binding get() = _binding!!
     private var _binding: FragmentHomeBinding? = null
     private lateinit var rvExpenseHistory: RecyclerView
     private lateinit var expenseHistoryAdapter: ExpenseHistoryAdapter
     private lateinit var pieChart: PieChart
+    private lateinit var progressBarHelper: ProgressBarHelper
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        progressBarHelper = ProgressBarHelper(requireActivity() as MainActivity)
 
-        val textView: TextView = binding.tvGreeting
-        homeViewModel.userName.observe(viewLifecycleOwner) {
-            textView.text = it
+        viewModel.userName.observe(viewLifecycleOwner) {
+            binding.tvGreeting.text = "Hello, $it"
+        }
+
+        viewModel.income.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.tvIncome.text = RupiahFormatter.format(it.toLong())
+            }
+        }
+
+        viewModel.getTotalExpensesByCategory().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.data?.let { data ->
+                        val expenses = data.expenses
+                        pieChart = binding.pieChartView
+                        initPieChart()
+                        showPieChart(expenses)
+                    }
+                    progressBarHelper.hide()
+                }
+                Status.ERROR -> {
+                    progressBarHelper.hide()
+                }
+                Status.LOADING -> {
+                    progressBarHelper.show()
+                }
+            }
         }
 
         rvExpenseHistory = binding.rvExpenseHistory
         expenseHistoryAdapter = ExpenseHistoryAdapter()
-
         rvExpenseHistory.layoutManager = LinearLayoutManager(requireContext())
         rvExpenseHistory.adapter = expenseHistoryAdapter
-
-        // Set data palsu ke adapter
-        val expenseList = getExpenseHistoryData()
-        expenseHistoryAdapter.setData(expenseList)
-
-        pieChart = binding.pieChartView
-        initPieChart()
-        showPieChart(expenseList)
+        viewModel.getExpensesHistory().observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.data?.let { data ->
+                        val expenses = data.expenses
+                        (rvExpenseHistory.adapter as? ExpenseHistoryAdapter)?.setData(expenses)
+                    }
+                    progressBarHelper.hide()
+                }
+                Status.ERROR -> {
+                    progressBarHelper.hide()
+                }
+                Status.LOADING -> {
+                    progressBarHelper.show()
+                }
+            }
+        }
 
         return root
     }
 
-    private fun getExpenseHistoryData(): List<ExpenseItem> {
-        return listOf(
-            ExpenseItem("Food", "25.000", "2024-06-10"),
-            ExpenseItem("Transportation", "30.000", "2024-06-11"),
-            ExpenseItem("Shopping", "250.000", "2024-06-12"),
-            ExpenseItem("Education", "500.000", "2024-06-14"),
-            ExpenseItem("Sport", "100.000", "2024-06-15"),
-            ExpenseItem("Internet", "200.000", "2024-06-16"),
-        )
-    }
-
-    private fun calculateTotalExpense(expenseList: List<ExpenseItem>): Float {
-        var totalExpense = 0f
-        for (expenseItem in expenseList) {
-            val amount = expenseItem.amount.replace(".", "").toFloatOrNull() ?: 0f
-            totalExpense += amount
-        }
-        return totalExpense
+    private fun calculateTotalExpense(expenseList: List<ExpenseItemAggregate>): Float {
+        return expenseList.sumOf { it.totalExpense.toDouble() }.toFloat()
     }
 
     private fun initPieChart() {
@@ -96,11 +121,11 @@ class HomeFragment : Fragment() {
         pieChart.legend.isEnabled = false
     }
 
-    private fun showPieChart(expenseList: List<ExpenseItem>) {
+    private fun showPieChart(expenseList: List<ExpenseItemAggregate>) {
         val pieEntries = ArrayList<PieEntry>()
         val typeAmountMap = mutableMapOf<String, Float>()
         for (expenseItem in expenseList) {
-            val amount = expenseItem.amount.replace(".", "").toFloatOrNull() ?: 0f
+            val amount = expenseItem.totalExpense.toFloat()
             if (typeAmountMap.containsKey(expenseItem.category)) {
                 typeAmountMap[expenseItem.category] = typeAmountMap[expenseItem.category]!! + amount
             } else {
