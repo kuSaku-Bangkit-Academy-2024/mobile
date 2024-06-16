@@ -39,13 +39,13 @@ class ViewModelFactory(
                 RegisterViewModel(authRepository) as T
             }
             modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
-                TransactionViewModel(apiService, authRepository, expenseRepository) as T
+                TransactionViewModel(apiService, expenseRepository) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(authRepository, expenseRepository) as T
             }
             modelClass.isAssignableFrom(ReportViewModel::class.java) -> {
-                ReportViewModel(authRepository, expenseRepository) as T
+                ReportViewModel(expenseRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
