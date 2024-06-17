@@ -128,7 +128,7 @@ class ReportFragment : Fragment() {
         val totalExpense = calculateTotalExpense(expenseList)
         val formattedTotalExpense =
             NumberFormat.getCurrencyInstance(Locale("id", "ID")).format(totalExpense)
-        totalExpenseTextView.text = formattedTotalExpense
+        totalExpenseTextView.text = "Total expense: " + formattedTotalExpense.toString()
 
         for (entry in typeAmountMap.entries) {
             pieEntries.add(PieEntry(entry.value, entry.key))
