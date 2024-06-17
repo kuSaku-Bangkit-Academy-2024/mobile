@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.kusaku.R
 import com.capstone.kusaku.data.remote.response.ExpenseItem
-import com.capstone.kusaku.utils.DateHelper
 import com.capstone.kusaku.utils.RupiahFormatter
 import java.util.Locale
 
@@ -46,7 +45,7 @@ class ExpenseHistoryAdapter : RecyclerView.Adapter<ExpenseHistoryAdapter.ViewHol
             if (expenseItem != null) {
                 categoryTextView.text = capitalizeWords(expenseItem.describe)
                 amountTextView.text = RupiahFormatter.format(expenseItem.price.toLong())
-                dateTextView.text = DateHelper.convertTimestampToDate(expenseItem.timestamp.toLong())
+                dateTextView.text = expenseItem.timestamp
                 imageView.setImageResource(getItemIcon(expenseItem.category))
             } else {
                 // Tangani kasus null (misalnya, tampilkan placeholder atau pesan kesalahan)
