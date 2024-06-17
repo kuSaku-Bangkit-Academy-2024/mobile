@@ -35,5 +35,5 @@ data class ExpenseItem(
 	val category: String,
 
 	@field:SerializedName("timestamp")
-	val timestamp: Int
+	val timestamp: String
 )
