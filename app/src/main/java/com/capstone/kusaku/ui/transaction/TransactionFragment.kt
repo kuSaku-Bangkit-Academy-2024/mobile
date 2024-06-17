@@ -19,8 +19,8 @@ import com.capstone.kusaku.utils.Status
 import java.util.Calendar
 
 class TransactionFragment : Fragment() { private val viewModel: TransactionViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
+    ViewModelFactory.getInstance(requireContext())
+}
     private lateinit var progressBarHelper: ProgressBarHelper
     private lateinit var adapter: ArrayAdapter<String>
     private val categories = ArrayList<String>()

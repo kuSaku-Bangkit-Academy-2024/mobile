@@ -4,10 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="15dp"
     android:background="@color/teal_700">
 
     <!-- Title -->
+
+    <ImageView
+        android:id="@+id/iv_background_logo"
+        android:layout_width="415dp"
+        android:layout_height="125dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_login_regis"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/tv_add_expense_title"
         android:layout_width="wrap_content"
@@ -25,8 +38,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin2"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin2"
         android:layout_marginTop="24dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
