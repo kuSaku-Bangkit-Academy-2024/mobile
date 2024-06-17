@@ -3,6 +3,8 @@ package com.capstone.kusaku.data.remote.retrofit
 import com.capstone.kusaku.data.local.UserPreference
 import com.capstone.kusaku.data.local.UserSession
 import com.capstone.kusaku.data.remote.request.RefreshTokenRequest
+import com.capstone.kusaku.data.remote.response.CommonResponse
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -12,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.nio.charset.Charset
 
 class AuthInterceptor(
     private val userPreference: UserPreference,
@@ -41,7 +44,17 @@ class AuthInterceptor(
 
         var response = chain.proceed(request)
 
-        if (response.code == 401 || response.code == 403 || response.code == 500) {
+        val source = response.body?.source()
+        source?.request(Long.MAX_VALUE)
+        val buffer = source?.buffer
+        val responseBodyString = buffer?.clone()?.readString(Charset.forName("UTF-8"))
+
+        var responseBody: CommonResponse? = null
+        if (response.body != null){
+            responseBody = Gson().fromJson(responseBodyString, CommonResponse::class.java)
+        }
+
+        if (responseBody?.message.equals("Failed to authenticate token")) {
             val newAccessToken = runBlocking {
                 val refreshToken = userPreference.getSession().first().refreshToken
                 refreshToken?.let {
