@@ -20,6 +20,19 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
         app:srcCompat="@drawable/img_login" />
 
+    <ImageView
+        android:id="@+id/iv_background_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_login_regis"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/tv_title_login"
         style="@style/HeaderLoginRegister"
@@ -41,9 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:paddingBottom="10dp"
         android:text="@string/sub_tittle_login"
         android:textColor="@color/white"
-        android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_login" />
@@ -53,9 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:background="@drawable/bg_rounded"
         android:orientation="vertical"
         android:paddingTop="10dp"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_subtitle_login">
@@ -66,11 +79,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="@string/sign_in"
             android:textColor="@color/teal_700"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="10dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_email_login"
@@ -87,15 +100,15 @@
             style="@style/TextInputLayoutStyle"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" >
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <com.capstone.kusaku.ui.main.MyEditText
                 android:id="@+id/edt_email_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_edt_default"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:background="@drawable/bg_edt_default"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,15 +127,15 @@
             style="@style/TextInputLayoutStyle"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" >
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <com.capstone.kusaku.ui.main.MyEditText
                 android:id="@+id/edt_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_edt_default"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:background="@drawable/bg_edt_default"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,14 +145,14 @@
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin2"
-            android:text="@string/button_sign_in"
-            android:textColor="@color/white"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:backgroundTint="@color/teal_700"
+            android:text="@string/button_sign_in"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            app:cornerRadius="@dimen/corner_radius"/>
+            app:cornerRadius="@dimen/corner_radius" />
 
         <TextView
             android:id="@+id/tv_to_sign_up"
@@ -147,9 +160,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:gravity="center"
             android:paddingTop="10dp"
-            android:text="@string/dont_have_account"
-            android:gravity="center" />
+            android:text="@string/dont_have_account" />
 
     </LinearLayout>
 
