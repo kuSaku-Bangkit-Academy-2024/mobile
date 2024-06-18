@@ -42,7 +42,13 @@ class LoginViewModel(
 
             emit(Resource.success(loginResponse))
         } catch (exception: Exception) {
-            emit(Resource.error(exception.message ?: "Error occurred"))
+            var errorMessage = "An error occurred :("
+            if (exception.message?.contains("401") == true){
+                errorMessage = "Invalid email or password"
+            } else if (exception.message?.contains("404") == true){
+                errorMessage = "User not found"
+            }
+            emit(Resource.error(errorMessage))
         }
     }
 }
