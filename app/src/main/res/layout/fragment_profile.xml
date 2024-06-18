@@ -1,114 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/teal_700"
-    android:paddingHorizontal="30dp"
-    tools:context=".ui.profile.ProfileFragment">
+    android:layout_height="match_parent">
 
-    <!-- Profile Title -->
-    <TextView
-        android:id="@+id/profile_title"
-        android:layout_width="wrap_content"
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/iv_background_logo"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="30dp"
-        android:text="@string/profile"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <!-- Username Label -->
-    <TextView
-        android:id="@+id/label_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profile_title"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:text="@string/username"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
 
-    <!-- Username Value -->
-    <TextView
-        android:id="@+id/value_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/label_username"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Email Label -->
-    <TextView
-        android:id="@+id/label_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/value_username"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:text="@string/email"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
-
-    <!-- Email Value -->
-    <TextView
-        android:id="@+id/value_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/label_email"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Income Label -->
-    <TextView
-        android:id="@+id/label_income"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/value_email"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:text="@string/income"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
-
-    <!-- Income Value -->
-    <TextView
-        android:id="@+id/value_income"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/label_income"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Log Out Button -->
-    <Button
-        android:id="@+id/btn_logout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin2"
-        android:layout_marginBottom="30dp"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@android:color/white"
-        android:text="@string/log_out"
-        android:textColor="@color/teal_700"
-        style="@style/SubTitleText"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        app:cornerRadius="20dp"
-        android:textSize="18sp" />
+        android:layout_height="match_parent"
+        tools:context=".ui.profile.ProfileFragment">
 
-</RelativeLayout>
+        <!-- Profile Title -->
+        <View
+            android:id="@+id/view_top_profile"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-25dp"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/teal_700" />
+
+        <TextView
+            android:id="@+id/profile_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <!-- Username Label -->
+        <TextView
+            android:id="@+id/label_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_top_profile"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/username"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+
+        <!-- Username Value -->
+        <TextView
+            android:id="@+id/value_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_username"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Border Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/value_username"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/teal_700" />
+
+        <!-- Email Label -->
+        <TextView
+            android:id="@+id/label_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/value_username"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/email"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+
+        <!-- Email Value -->
+        <TextView
+            android:id="@+id/value_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_email"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Border Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/value_email"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/teal_700" />
+
+        <!-- Income Label -->
+        <TextView
+            android:id="@+id/label_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/value_email"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/income"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+
+        <!-- Income Value -->
+        <TextView
+            android:id="@+id/value_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_income"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Border Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/value_income"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/teal_700" />
+
+        <!-- Log Out Button -->
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin2"
+            android:layout_marginBottom="30dp"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/teal_700"
+            android:text="@string/log_out"
+            android:textColor="@color/white"
+            style="@style/SubTitleText"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            app:cornerRadius="20dp"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
