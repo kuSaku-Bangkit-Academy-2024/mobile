@@ -85,6 +85,12 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
 
     private fun useAiToCategorize() {
         val description = binding.edtDescription.text.toString()
+
+        if (description.isEmpty() || description.length < 4){
+            Toast.makeText(requireContext(), "Fill in the description (min. 4 chars)", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         viewModel.predictCategory(description).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
@@ -133,7 +139,7 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
     }
 
     private fun setupCategoryDropdown() {
-        val categories = listOf("Food", "Transportation", "Apparel", "Household", "Social Life", "Education", "Entertainment", "Health", "other")
+        val categories = listOf("Food", "Transportation", "Apparel", "Household", "Social Life", "Education", "Entertainment", "Health", "Other")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item_category, categories)
         binding.dropdownCategory.setAdapter(adapter)
     }
@@ -144,7 +150,7 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
         val price = binding.edtNominal.text.toString().toIntOrNull() ?: 0
         val category = binding.dropdownCategory.text.toString()
 
-        if (timestamp.isNotEmpty() && describe.isNotEmpty() && price > 0 && category.isNotEmpty()) {
+        if (timestamp.isNotEmpty() && describe.isNotEmpty() && describe.length >= 4 && price > 0 && category.isNotEmpty()) {
             viewModel.addTransaction(timestamp, describe, price, category).observe(viewLifecycleOwner) { response ->
                 when (response.status) {
                     Status.SUCCESS -> {
@@ -161,6 +167,8 @@ class TransactionFragment : Fragment() { private val viewModel: TransactionViewM
                     Status.LOADING -> progressBarHelper.show()
                 }
             }
+        } else {
+            Toast.makeText(context, "Fill out all the forms", Toast.LENGTH_SHORT).show()
         }
     }
 

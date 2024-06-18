@@ -17,7 +17,7 @@ class ReportViewModel(
             val response = expenseRepository.getExpensesByCategory(date)
             emit(Resource.success(response))
         } catch (exception: Exception) {
-            emit(Resource.error(exception.message ?: "Error occurred"))
+            emit(Resource.error("Error occurred"))
         }
     }
 
@@ -27,7 +27,7 @@ class ReportViewModel(
             val response = expenseRepository.getAdvices()
             emit(Resource.success(response))
         } catch (exception: Exception) {
-            emit(Resource.error(exception.message ?: "Error occurred"))
+            emit(Resource.error("Error occurred"))
         }
     }
 }
