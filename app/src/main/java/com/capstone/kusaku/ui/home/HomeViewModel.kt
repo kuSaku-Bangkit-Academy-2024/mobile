@@ -44,7 +44,7 @@ class HomeViewModel(
             val response = expenseRepository.getExpensesByCategory(date)
             emit(Resource.success(response))
         } catch (exception: Exception) {
-            emit(Resource.error(exception.message ?: "Error occurred"))
+            emit(Resource.error("An error occurred"))
         }
     }
 
@@ -55,7 +55,7 @@ class HomeViewModel(
             val response = expenseRepository.getExpensesHistory(date)
             emit(Resource.success(response))
         } catch (exception: Exception) {
-            emit(Resource.error(exception.message ?: "Error occurred"))
+            emit(Resource.error("An error occurred"))
         }
     }
 }
