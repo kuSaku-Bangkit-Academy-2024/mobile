@@ -15,7 +15,11 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
             val response = authRepository.register(registerRequest)
             emit(Resource.success(response))
         } catch (exception: Exception) {
-            emit(Resource.error(exception.message ?: "Error occurred"))
+            var errorMessage = "An error occurred"
+            if (exception.message?.contains("409") == true){
+                errorMessage = "Email is in use"
+            }
+            emit(Resource.error(errorMessage))
         }
     }
 }
