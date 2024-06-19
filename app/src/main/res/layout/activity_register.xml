@@ -12,7 +12,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_700"
+        android:background="?attr/colorPrimary"
         tools:context=".ui.register.RegisterActivity">
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:text="@string/welcome"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:text="@string/sub_title_register"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:paddingBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up"
-                android:textColor="@color/teal_700"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:padding="10dp" />
@@ -87,7 +87,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/name"
-                android:textColor="@color/teal_700" />
+                android:textColor="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_name_register"
@@ -114,7 +114,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/email"
-                android:textColor="@color/teal_700" />
+                android:textColor="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_email_register"
@@ -141,7 +141,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/password"
-                android:textColor="@color/teal_700" />
+                android:textColor="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_password_register"
@@ -168,7 +168,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/confirmation_password"
-                android:textColor="@color/teal_700" />
+                android:textColor="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_confirmation_password_register"
@@ -195,7 +195,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/monthly_income"
-                android:textColor="@color/teal_700" />
+                android:textColor="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_monthly_income_register"
@@ -223,8 +223,8 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/button_sign_up"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/teal_700"
+                android:textColor="?attr/colorOnPrimary"
+                android:backgroundTint="?attr/colorPrimary"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 app:cornerRadius="@dimen/corner_radius"/>
@@ -237,7 +237,8 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="10dp"
                 android:text="@string/got_an_account"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textColor="?attr/colorOnSecondary" />
 
         </LinearLayout>
 

@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category"
-        android:layout_toEndOf="@id/imageView" />
+        android:layout_toEndOf="@id/imageView"
+        android:textColor="?attr/colorOnSecondary" />
 
     <TextView
         android:id="@+id/tv_date"
@@ -24,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/date"
-        android:textColor="@color/gray"
+        android:textColor="?attr/colorSecondaryVariant"
         android:layout_below="@id/tv_category"
         android:layout_toEndOf="@id/imageView" />
 
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:text="@string/amount"
         android:layout_alignParentEnd="true"
-        android:layout_toStartOf="@id/tv_date" />
+        android:layout_toStartOf="@id/tv_date"
+        android:textColor="?attr/colorOnSecondary" />
 
 </RelativeLayout>
