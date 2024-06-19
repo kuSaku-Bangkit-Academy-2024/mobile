@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorOnPrimary">
 
     <!-- Background Image -->
     <ImageView
@@ -42,7 +43,7 @@
             android:layout_centerHorizontal="true"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/profile"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -67,7 +68,7 @@
             android:layout_below="@id/label_username"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/teal_700"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -101,7 +102,7 @@
             android:layout_below="@id/label_email"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/teal_700"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -135,7 +136,7 @@
             android:layout_below="@id/label_income"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/teal_700"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -161,7 +162,7 @@
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/teal_700"
             android:text="@string/log_out"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnPrimary"
             style="@style/SubTitleText"
             android:textStyle="bold"
             android:textAllCaps="false"
